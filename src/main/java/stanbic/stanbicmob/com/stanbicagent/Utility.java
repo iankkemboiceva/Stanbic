@@ -275,7 +275,7 @@ public static JSONArray getNubanAlgo(String account){
 		}
 		return fmamo;
 	}
-	public static Number returnOldNumberFormat(String amount) {
+	public static String returnOldNumberFormat(String amount) {
 		Number number = 0;
 		try {
 
@@ -286,7 +286,7 @@ public static JSONArray getNubanAlgo(String account){
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return number;
+		return number.toString();
 	}
 	public static boolean checkInternetConnection(Context c) {
 		ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);

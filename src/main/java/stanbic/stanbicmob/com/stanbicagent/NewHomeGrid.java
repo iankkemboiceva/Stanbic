@@ -218,7 +218,7 @@ if(Utility.isNotNull(cntopen)) {
 
 
 
-            startActivity(new Intent(getActivity(), CashDepoActivity.class));
+            startActivity(new Intent(getActivity(), CashDepoTransActivity.class));
 
         }
         if (view.getId() == R.id.rlopenaccinside) {

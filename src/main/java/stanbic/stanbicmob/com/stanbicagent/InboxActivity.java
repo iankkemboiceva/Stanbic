@@ -201,7 +201,7 @@ public class InboxActivity extends BaseActivity implements View.OnClickListener,
         pro.setCancelable(false);
 
 
-     /*   lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      /* lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Log.d("onContextItemSelected","Remove Pressed");
@@ -230,7 +230,7 @@ public class InboxActivity extends BaseActivity implements View.OnClickListener,
                 fragmentTransaction.commit();
             }
         });*/
-        //registerForContextMenu(lv);
+        registerForContextMenu(lv);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -572,9 +572,9 @@ if(!(comperf == null)) {
             String txndateTime = json_data.optString("txndateTime");
             String amount = json_data.optString("amount");
             String status = json_data.optString("status");
-            String toAcNum = json_data.optString("toAcNum");
+            String toAcNum = json_data.optString("custAccNum");
             String refNumber = json_data.optString("refNumber");
-            String fromaccnum = json_data.optString("fromAccountNum");
+            String fromaccnum = json_data.optString("agentAccNum");
             Log.v("my amount", amount);
             double dbam = 0;
             if ((amount != null) && (!(amount.equals("null")))) {
@@ -605,7 +605,7 @@ if(!(comperf == null)) {
 
             lv.setAdapter(aAdpt);
 
-            //   registerForContextMenu(lv);
+              registerForContextMenu(lv);
         }
 
 

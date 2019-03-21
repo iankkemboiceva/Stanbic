@@ -64,89 +64,9 @@
 
 
 
-            <LinearLayout
-                android:id="@+id/lyid"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
 
-                android:layout_weight="25"
-                android:orientation="horizontal"
-
-
-                >
-
-                <RelativeLayout
-                    android:id="@+id/rl2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/rl1"
-                    android:gravity="center"
-                    android:layout_weight="1"
-
-                    android:background="@drawable/rectangle425"
-
-                    >
-
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/transfe"
-                        android:layout_marginTop="0dp"
-                        android:id="@+id/imgt"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Transfer"
-                        android:paddingTop="17dp"
-                        android:textColor="@color/white"
-                        android:layout_below="@+id/imgt"
-                        android:layout_centerHorizontal="true"
-                        />
-
-
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:id="@+id/rl3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_centerHorizontal="true"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:background="@drawable/rectangle423"
-
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/group6"
-                        android:layout_marginTop="0dp"
-                        android:id="@+id/imgpaybills"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Withdraw"
-                        android:paddingTop="17dp"
-                        android:textColor="@color/white"
-                        android:layout_below="@+id/imgpaybills"
-                        android:layout_centerHorizontal="true"
-                        />
-
-
-                </RelativeLayout>
-
-
-            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lyid2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
 
@@ -161,9 +81,9 @@
                     android:id="@+id/rl5"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
+
                     android:layout_weight="1"
-                    android:visibility="gone"
+
                     android:gravity="center"
                     android:background="@drawable/rectangle427">
 
@@ -186,6 +106,92 @@
 
 
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/rl1"
+                    android:gravity="center"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/rectangle425"
+
+                    >
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/transfe"
+                        android:layout_marginTop="0dp"
+                        android:id="@+id/imgt"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Transfer"
+                        android:paddingTop="17dp"
+                        android:textColor="@color/white"
+                        android:layout_below="@+id/imgt"
+                        android:layout_centerHorizontal="true"
+                        />
+
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+android:visibility="gone"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:id="@+id/rlopenaccinside"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/account"
+
+                            android:id="@+id/imgtacc"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Open Account"
+                            android:paddingTop="17dp"
+                            android:textColor="@color/white"
+                            android:layout_below="@+id/imgtacc"
+                            android:layout_centerHorizontal="true"
+                            />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyid2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+
+
+                android:layout_weight="25"
+
+                android:orientation="horizontal"
+
+                >
+
+
 
                 <RelativeLayout
                     android:id="@+id/rl1"
@@ -252,15 +258,14 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
             <LinearLayout
+                android:id="@+id/lyid"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
 
-
                 android:layout_weight="25"
-
                 android:orientation="horizontal"
+
 
                 >
 
@@ -268,44 +273,41 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/rl4"
+                    android:id="@+id/rl3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+                    android:visibility="gone"
+                    android:layout_centerHorizontal="true"
                     android:layout_weight="1"
-
                     android:gravity="center"
-                    android:layout_gravity="center"
+                    android:background="@drawable/rectangle423"
 
                     >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:gravity="center"
-    android:id="@+id/rlopenaccinside"
-   android:visibility="gone"
-    android:layout_gravity="center"
-    android:layout_height="match_parent">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/account"
-
-                        android:id="@+id/imgtacc"
+                        android:src="@drawable/group6"
+                        android:layout_marginTop="0dp"
+                        android:id="@+id/imgpaybills"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Open Account"
+                        android:text="Withdraw"
                         android:paddingTop="17dp"
                         android:textColor="@color/white"
-                        android:layout_below="@+id/imgtacc"
+                        android:layout_below="@+id/imgpaybills"
                         android:layout_centerHorizontal="true"
                         />
-</RelativeLayout>
+
+
                 </RelativeLayout>
+
 
             </LinearLayout>
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"

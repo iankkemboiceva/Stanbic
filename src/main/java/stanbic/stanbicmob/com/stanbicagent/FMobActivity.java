@@ -286,17 +286,17 @@ showEditDialog("MYPERF");
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);*/
 
 
-             /* fragment = new ComingSoon();
-                title = "My Profile";*/
+              fragment = new ViewComplaints();
+                title = "My Profile";
 
 
 
-                Intent ps = new Intent(FMobActivity.this, LogCompActivity.class);
+            /*    Intent ps = new Intent(FMobActivity.this, LogCompActivity.class);
 
 
                 // Staring Login Activity
                 startActivity(ps);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);*/
                 break;
             case 4:
 

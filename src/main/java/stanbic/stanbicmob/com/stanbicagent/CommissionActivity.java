@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -220,6 +221,8 @@ String servtype = Utility.convertTxnCodetoServ(txncode);
                     JSONObject plan = obj.optJSONObject("data");
                     //session.setString(SecurityLayer.KEY_APP_ID,appid);
 
+                    JSONArray balances = plan.optJSONArray("balances");
+
 
                     if(!(response.body() == null)) {
                         if (respcode.equals("00")) {
@@ -227,7 +230,7 @@ String servtype = Utility.convertTxnCodetoServ(txncode);
                             SecurityLayer.Log("Response Message", responsemessage);
 
 //                                     SecurityLayer.Log("Respnse getResults",datas.toString());
-                            if (!(plan == null)) {
+                        /*    if (!(plan == null)) {
                                 String balamo = plan.optString("balance");
                                 String comamo = plan.optString("commission");
 
@@ -238,7 +241,24 @@ String servtype = Utility.convertTxnCodetoServ(txncode);
 
                                 //   cmbal = Utility.roundto2dp(cmbal);
                                 commamo.setText(ApplicationConstants.KEY_NAIRA+cmbal);
-                            } else {
+                            }*/
+                            if (!(balances == null)) {
+                                JSONObject jsacbal = balances.getJSONObject(0);
+                                JSONObject jscomm = balances.getJSONObject(1);
+                                String balamo = jsacbal.optString("Balance");
+                                String comamo = jscomm.optString("Balance");
+
+
+                                String cmbal = Utility.returnNumberFormat(comamo);
+
+                                cmbal = Utility.roundto2dp(cmbal);
+                                //  String bll = Utility.returnNumberFormat(balamo);
+
+                                String fbal = Utility.returnNumberFormat(balamo);
+                                commamo.setText("Account Balance: " + Html.fromHtml("&#8358") + " " + fbal);
+                            }
+
+                        else {
                                 Toast.makeText(
                                         getApplicationContext(),
                                         "There was an error retrieving your balance ",
@@ -445,9 +465,9 @@ String servtype = Utility.convertTxnCodetoServ(txncode);
                                             String txndateTime = json_data.optString("txndateTime");
                                             String amount = json_data.optString("amount");
                                             String status = json_data.optString("status");
-                                            String toAcNum = json_data.optString("toAcNum");
+                                            String toAcNum = json_data.optString("custAccNum");
                                             String refNumber = json_data.optString("refNumber");
-                                            String fromaccnum = json_data.optString("fromAccountNum");
+                                            String fromaccnum = json_data.optString("agentAccNum");
                                             if(txnCode.equals("CASHDEP") || txnCode.equals("FTINTRABANK")){
                                                 fintoacnum = fromaccnum;
                                                 finfromacnum  = toAcNum;

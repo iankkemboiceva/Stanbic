@@ -170,6 +170,8 @@ public class MinistatActivity extends BaseActivity implements DatePickerDialog.O
 
 
                         JSONObject plan = obj.optJSONObject("data");
+
+                        JSONArray balances = plan.optJSONArray("balances");
                         //session.setString(SecurityLayer.KEY_APP_ID,appid);
 
                         if (!(getApplicationContext() == null)) {
@@ -180,7 +182,7 @@ public class MinistatActivity extends BaseActivity implements DatePickerDialog.O
 
 //                                    SecurityLayer.Log("Respnse getResults",datas.toString());
 
-                                    if (!(plan == null)) {
+                                 /*   if (!(plan == null)) {
                                         String balamo = plan.optString("balance");
                                         String comamo = plan.optString("commision");
 
@@ -192,7 +194,23 @@ public class MinistatActivity extends BaseActivity implements DatePickerDialog.O
 
                                         String fbal = Utility.returnNumberFormat(balamo);
                                         txaccbal.setText("Account Balance: " + Html.fromHtml("&#8358") + " " + fbal);
-                                    } else {
+                                    }*/
+
+                                    if (!(balances == null)) {
+                                        JSONObject jsacbal = balances.getJSONObject(0);
+                                        JSONObject jscomm = balances.getJSONObject(1);
+                                        String balamo = jsacbal.optString("Balance");
+                                        String comamo = jscomm.optString("Balance");
+
+
+                                        String cmbal = Utility.returnNumberFormat(comamo);
+
+                                        cmbal = Utility.roundto2dp(cmbal);
+                                        //  String bll = Utility.returnNumberFormat(balamo);
+
+                                        String fbal = Utility.returnNumberFormat(balamo);
+                                        txaccbal.setText("Account Balance: " + Html.fromHtml("&#8358") + " " + fbal);
+                                    }else {
                                         if (!(getApplicationContext() == null)) {
                                             Toast.makeText(
                                                     getApplicationContext(),
@@ -412,7 +430,7 @@ public class MinistatActivity extends BaseActivity implements DatePickerDialog.O
     private void MiniStmtt(String params) {
         if(!(getApplicationContext() == null)) {
 
-            String endpoint = "core/stmt.action";
+            String endpoint = "core/agentStmt.action";
 
 
             String usid = Utility.gettUtilUserId(getApplicationContext());
@@ -477,11 +495,11 @@ public class MinistatActivity extends BaseActivity implements DatePickerDialog.O
                                                 //String accid = json_data.getString("benacid");
 
 
-                                                String tran_date = json_data.optString("date");
+                                                String tran_date = json_data.optString("Datetime");
 
-                                                String tran_remark = json_data.optString("narration");
+                                                String tran_remark = json_data.optString("Narration");
                                                 String credit_debit = "Credit";
-                                                String tran_amt = Utility.returnNumberFormat(json_data.optString("amount"));
+                                                String tran_amt = Utility.returnOldNumberFormat(json_data.optString("Amount"));
 
 Double dbamo = Double.parseDouble(tran_amt);
 if(dbamo <0){

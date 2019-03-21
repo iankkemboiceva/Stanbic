@@ -320,18 +320,21 @@ public class TransactionProcessingActivity extends BaseActivity implements View.
                     if(!(response.body() == null)) {
                         String respcode = obj.optString("responseCode");
                         String responsemessage = obj.optString("message");
-                        String agcmsn = obj.optString("fee");
-                        String refcodee = obj.optString("commission");
+                        String totfee = obj.optString("fee");
+                        String agcmsn = obj.optString("commission");
+                        String refcodee = "";
+
                         SecurityLayer.Log("Response Message", responsemessage);
                         SecurityLayer.Log("Response Code", respcode);
                         if (Utility.isNotNull(respcode) && Utility.isNotNull(respcode)) {
                             if (!(Utility.checkUserLocked(respcode))) {
                                 if(respcode.equals("00")){
-                                    String totfee = "0.00";
+
                                     String datetimee = "";
                                     if(!(datas == null)){
-                                        totfee = datas.optString("fee");
-                                        datetimee = datas.optString("dateTime");
+
+                                        datetimee = datas.optString("datetime");
+                                        refcodee = datas.optString("ReferenceId");
                                     }
                                     Bundle b  = new Bundle();
 

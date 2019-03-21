@@ -16,6 +16,7 @@
 package adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,11 +102,19 @@ public class NewMinListAdapter extends ArrayAdapter<MinistatData> implements Fil
 		MinistatData p = planetList.get(position);
 		holder.txtname.setText(p.getTranRemark());
         holder.txtmobno.setText(p.getTranDate());
-        String timee = getTime(p.getTranDate());
+       // String timee = getTime(p.getTranDate());
         holder.txtime.setText("");
-		String dyy = getDay(p.getTranDate());
+		String dyy = "";
+
+		String month = "";
+
+			 month = getMonth(p.getTranDate());
+			dyy = getDay(p.getTranDate());
+
 		holder.txtdayy.setText(dyy);
-		String month = getMonth(p.getTranDate());
+		Log.v("Month",p.getTranDate());
+		Log.v("Month",month);
+		Log.v("Day",dyy);
 		holder.txtmnth.setText(month);
         String amo = p.getTranAmount();
 
@@ -149,7 +158,7 @@ public class NewMinListAdapter extends ArrayAdapter<MinistatData> implements Fil
 
 	public static String getDay(String date){
 		String fdate = date;
-		SimpleDateFormat dt = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		Date datee = null;
 		try {
 			datee = dt.parse(date);
@@ -165,7 +174,7 @@ public class NewMinListAdapter extends ArrayAdapter<MinistatData> implements Fil
 	}
 	public static String getMonth(String date){
 		String fdate = date;
-		SimpleDateFormat dt = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 		Date datee = null;
 		try {
 			datee = dt.parse(date);

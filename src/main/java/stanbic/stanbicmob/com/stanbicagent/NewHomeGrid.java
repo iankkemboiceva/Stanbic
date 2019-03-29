@@ -157,7 +157,7 @@ if(Utility.isNotNull(cntopen)) {
             ((FMobActivity) getActivity())
                     .setActionBarTitle(title);*/
 
-            startActivity(new Intent(getActivity(), FTMenuActivity.class));
+            startActivity(new Intent(getActivity(), CashDepoTransActivity.class));
 
         }
 

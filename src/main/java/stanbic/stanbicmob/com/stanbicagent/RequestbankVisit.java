@@ -155,7 +155,7 @@ if(Utility.isNotNull(reas)){
                                     if (!(getActivity() == null)) {
                                         Toast.makeText(
                                                 getActivity(),
-                                                "Request for Visit has been successfully logged.A FirstBank representative will contact you ",
+                                                "Request for Visit has been successfully logged.A Stanbic representative will contact you ",
                                                 Toast.LENGTH_LONG).show();
                                         prgDialog2.dismiss();
                                         Fragment  fragment = new ViewAgentRequests();

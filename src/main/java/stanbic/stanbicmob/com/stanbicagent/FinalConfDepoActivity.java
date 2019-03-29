@@ -288,7 +288,7 @@ RelativeLayout rlsave,rlshare;
         }
         if(view.getId() == R.id.share_image){
            /* String userid = Utility.gettUtilUserId(getApplicationContext());
-          String test =  "   \n \n    TRANSFER TO FIRSTBANK  \nUSERID: "+userid+" \nReceipient Name: "+txtname+" \nRef Number:"+txtrfc+" \nAccount Number:"+recanno+" \nAmount:"+amou+" Naira\n Sender Name:"+ednamee+" \n Fee:"+strfee+" Naira \n \n \n \n";
+          String test =  "   \n \n    TRANSFER TO Stanbic  \nUSERID: "+userid+" \nReceipient Name: "+txtname+" \nRef Number:"+txtrfc+" \nAccount Number:"+recanno+" \nAmount:"+amou+" Naira\n Sender Name:"+ednamee+" \n Fee:"+strfee+" Naira \n \n \n \n";
 
 
             print(mConnection, mInterface,test);*/
@@ -355,7 +355,7 @@ RelativeLayout rlsave,rlshare;
         if(view.getId() == R.id.reportiss) {
             try {
                 String userid = Utility.gettUtilUserId(getApplicationContext());
-                sendData("   \n \n    TRANSFER TO FIRSTBANK  \nUSERID: "+userid+" \nReceipient Name: "+txtname+" \nRef Number:"+txtrfc+" \nAccount Number:"+recanno+" \nAmount:"+amou+" Naira\n Sender Name:"+ednamee+" \n Fee:"+strfee+" Naira \n \n \n \n");
+                sendData("   \n \n    TRANSFER TO Stanbic  \nUSERID: "+userid+" \nReceipient Name: "+txtname+" \nRef Number:"+txtrfc+" \nAccount Number:"+recanno+" \nAmount:"+amou+" Naira\n Sender Name:"+ednamee+" \n Fee:"+strfee+" Naira \n \n \n \n");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

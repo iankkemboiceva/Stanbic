@@ -136,7 +136,7 @@ public class FTMenu extends Fragment {
         aAdpt = new DashboardAdapter( planetsList,getActivity());
         gridView.setAdapter(aAdpt);*/
 
-        planetsList.add(new OTBList("FirstBank","057"));
+        planetsList.add(new OTBList("Stanbic","057"));
         planetsList.add(new OTBList("Other Banks","058"));
     //    planetsList.add(new OTBList("FirstMonie","059"));
         planetsList.add(new OTBList("Mobile Money Wallet","059"));

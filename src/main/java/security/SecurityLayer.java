@@ -58,8 +58,8 @@ public class SecurityLayer {
             Log("Imei is " + imei);
             Log("Session ID is " + session_id);
             finpoint = sb.append(ApplicationConstants.NET_URL + endpoint)
-                    .append(params)
-                   /* .append(toHex(encrypt(key, initVector, params)))
+                  //  .append(params)
+                    .append(toHex(encrypt(key, initVector, params)))
                     .append("/" + Utility.generateHashString(params))
                     .append("/" + toHex(hexkey))
                     .append(ApplicationConstants.CH_KEY)
@@ -68,7 +68,7 @@ public class SecurityLayer {
                     .append("/" + toHex(encrypt(key, initVector, imei)))
                     .append("/" + toHex(encrypt(key, initVector, session_id)))
                     .append("/" + vers)
-                    .append("/" + year)*/
+                    .append("/" + year)
                     .toString();
         }
         return  finpoint;
@@ -112,8 +112,8 @@ public class SecurityLayer {
             }
 
             finpoint = sb.append(ApplicationConstants.NET_URL + endpoint)
-                    .append(params)
-                    /*.append(toHex(encrypt(key, initVector, params)))
+                   // .append(params)
+                    .append(toHex(encrypt(key, initVector, params)))
                     .append("/" + Utility.generateHashString(params))
                     .append("/" + hexkey)
                     .append(ApplicationConstants.CH_KEY)
@@ -122,13 +122,13 @@ public class SecurityLayer {
                     .append("/" + toHex(encrypt(key, initVector, imei)))
 
                     .append("/" + vers)
-                    .append("/" + year)*/
+                    .append("/" + year)
                     .toString();
         }
         return finpoint;
     }
     public static JSONObject decryptFirstTimeLogin(JSONObject jsonobj, Context context) throws Exception {
-        /*SessionManagement session = new SessionManagement(context);
+        SessionManagement session = new SessionManagement(context);
         String status = jsonobj.getString("status");
         String svoke = jsonobj.getString("svoke");
         String input = jsonobj.getString("inp");
@@ -194,17 +194,17 @@ session.setString("NWAPPID",encappid);
             decjsonobj.put("hashstatus", gen.equals(dhash));
 
 
-        return newjs;*/
+        return newjs;
         //return decjsonobj;
         //System.out.println(decjsonobj);
-        return  jsonobj;
+     //   return  jsonobj;
 
     }
 
     public static String generalLogin( String params, String session_id, Context context,String endpoint) throws Exception {
         String finpoint = "";
         StringBuffer sb = new StringBuffer();
-       /* if (Utility.checkInternetConnection(context)) {
+        if (Utility.checkInternetConnection(context)) {
             SessionManagement session = new SessionManagement(context);
             String skey = session.getString(SecurityLayer.KEY_SKEY);
             //  String skey = "4UhIX09CelA75Rdao2u+j/vnnkAopFQbbO/nbHnebf4=";
@@ -248,11 +248,11 @@ session.setString("NWAPPID",encappid);
 
 
             String vers = Utility.getAppVersion(context);
-SecurityLayer.Log("encappid",encappid);*/
+SecurityLayer.Log("encappid",encappid);
 
             finpoint = sb.append(ApplicationConstants.NET_URL + endpoint)
-                    .append(params)
-                   /* .append(toHex(encryptedUrl))
+                  //  .append(params)
+                    .append(toHex(encryptedUrl))
                     .append("/" + Utility.generateHashString(params))
                     .append("/" + encryptedpkey)
                     .append(ApplicationConstants.CH_KEY)
@@ -261,13 +261,13 @@ SecurityLayer.Log("encappid",encappid);*/
                     .append("/" + toHex(encrypt(dummy_pkey, dummy_piv, imei)))
                     .append("/" + toHex(encrypt(dummy_pkey, dummy_piv, session_id)))
                     .append("/" + encryptedRandomIV)
-                    .append("/" + vers)*/
+                    .append("/" + vers)
                     .toString();
-     //   }
+       }
         return  finpoint;
     }
     public static JSONObject decryptGeneralLogin(JSONObject jsonobj, Context context) throws Exception {
-       /* SessionManagement session = new SessionManagement(context);
+        SessionManagement session = new SessionManagement(context);
         String status = jsonobj.getString("status");
         String svoke = jsonobj.getString("svoke");
         String input = jsonobj.getString("inp");
@@ -315,19 +315,17 @@ SecurityLayer.Log("encappid",encappid);*/
 
 
         Log(decjsonobj.toString());
-        return new JSONObject(finalresp);*/
-        return jsonobj;
+        return new JSONObject(finalresp);
+      //  return jsonobj;
 
     }
     public static String genURLCBC(String params,String endpoint,  Context c) {
         String finpoint = "";
         if(Utility.checkInternetConnection(c)) {
-          /*  SessionManagement session = new SessionManagement(c);
-            String token = session.getString(KEY_TOKEN);
-            SecurityLayer.Log("existing_token", token);
-            String fnltkt = token;
-            fnltkt = Utility.nextToken(fnltkt);
-            SecurityLayer.Log("next_token", fnltkt);
+            SessionManagement session = new SessionManagement(c);
+
+            String fnltkt = "1234";
+
 
             String skey = session.getString(SecurityLayer.KEY_SKEY);
             SecurityLayer.Log("skey", skey);
@@ -401,20 +399,20 @@ SecurityLayer.Log("Imei chosen",imei);
             String vers = encryptedrandomIV;
 
            finpoint = endpoint + "/" + encryptedUrl + "/" + hash + "/" + encryptedpkey + ApplicationConstants.CH_KEY + "/" + encappid + "/" + fnltkt + "/" + encryptedimei + "/" + fsess + "/" + vers + "/" + year;
-*/
 
 
+/*
             finpoint = endpoint+params;
             StringBuffer sb = new StringBuffer();
             SessionManagement session = new SessionManagement(c);
             finpoint = sb.append(ApplicationConstants.NET_URL+ endpoint + "/")
                     .append(params)
-                    .toString();
+                    .toString();*/
         }
         return  finpoint;
     }
     public static JSONObject decryptTransaction(JSONObject jsonobj,Context context) throws Exception {
-       /* SessionManagement session = new SessionManagement(context);
+        SessionManagement session = new SessionManagement(context);
         String status = jsonobj.getString("status");
         String svoke = jsonobj.getString("svoke");
         String input = jsonobj.getString("inp");
@@ -473,8 +471,8 @@ SecurityLayer.Log("Imei chosen",imei);
     String respcode = data.optString("responseCode");
 
 
-        return data;*/
-        return jsonobj;
+        return data;
+       // return jsonobj;
     }
 
     public static void Log(String tag, String message) {

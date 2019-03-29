@@ -325,26 +325,9 @@ Log.v("Am i in","Yes");
                 startActivity(pIntent);
                 return true;
 
-            case R.id.chat:
-                Bundle c  = new Bundle();
-                String txamoo = planetsList.get(index).getAmount();
-                String txacnoo = planetsList.get(index).gettoAcNum();
-                String txrefnoo  = planetsList.get(index).getrefNumber();
-                String txtdatee = planetsList.get(index).getTxndateTime();
-
-                c.putString("txamo",txamoo);
-                c.putString("txaco",txacnoo);
-                c.putString("txref",txrefnoo);
-                c.putString("txdate",txtdatee);
-                Intent chatin = new Intent(this,ChatActivity.class);
-
-
-                chatin.putExtras(c);
-                startActivity(chatin);
 
 
 
-                return  true;
 
 
 

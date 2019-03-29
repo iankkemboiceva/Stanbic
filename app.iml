@@ -144,6 +144,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-base-16.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-core-ui-25.3.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-crash-16.2.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-placereport-16.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.PhilJay:MPAndroidChart:v3.0.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4-25.3.0" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:beta-1.2.10" level="project" />
@@ -183,6 +184,7 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid-interop-16.0.1" level="project" />
     <orderEntry type="library" name="Gradle: uk.co.chrisjenx:calligraphy-2.2.0" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:D.\AndroidStudioCodes\Stanbic\Stanbic\app\libs\android-async-http-1.4.4.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location-16.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:answers-1.4.3" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-impl-16.2.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid-17.0.4" level="project" />

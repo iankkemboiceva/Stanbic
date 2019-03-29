@@ -125,7 +125,7 @@ public class FTMenuActivity extends BaseActivity {
 
     public void SetPop(){
         planetsList.clear();
-       /* planetsList.add(new Dashboard("FirstBank", R.drawable.ic_ftblue));
+       /* planetsList.add(new Dashboard("Stanbic", R.drawable.ic_ftblue));
         planetsList.add(new Dashboard("Other Banks", R.drawable.ic_ftblue));
         planetsList.add(new Dashboard("FirstMonie",R.drawable.ic_ftblue));
 
@@ -139,7 +139,7 @@ public class FTMenuActivity extends BaseActivity {
         aAdpt = new DashboardAdapter( planetsList,getActivity());
         gridView.setAdapter(aAdpt);*/
 
-        planetsList.add(new OTBList("FirstBank","057"));
+        planetsList.add(new OTBList("Stanbic","057"));
         planetsList.add(new OTBList("Other Banks","058"));
         //    planetsList.add(new OTBList("FirstMonie","059"));
         planetsList.add(new OTBList("Mobile Money Wallet","059"));

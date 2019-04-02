@@ -630,7 +630,7 @@ public class ChangePinActivity extends BaseActivity implements View.OnClickListe
                                 session.setString(SessionManagement.KEY_SETAIRTIME,"N");
 
                                 session.setString(SessionManagement.PUBLICKEY,pubkey);
-                                String encryptednewpin = Utility.getencryptedpin(npin,pubkey);
+                                String encryptednewpin = Utility.b64_sha256(npin);
                                 Log.v("Public Key",pubkey);
                                 Log.v("Encrypted new pin",encryptednewpin);
                                 boolean checknewast = session.checkAst();

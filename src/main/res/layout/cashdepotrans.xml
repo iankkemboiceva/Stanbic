@@ -165,7 +165,7 @@ android:visibility="gone"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="5dp"
-                                android:text="TRANSFER TO Stanbic"
+                                android:text=""
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="14sp" />
 

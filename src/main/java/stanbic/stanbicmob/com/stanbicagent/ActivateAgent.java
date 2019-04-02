@@ -13,6 +13,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -40,15 +41,20 @@ import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.security.ProviderInstaller;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -58,6 +64,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import adapter.RegIDPojo;
@@ -72,13 +79,17 @@ import security.SecurityLayer;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActivateAgent extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,LocationListener  {
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
+
+public class ActivateAgent extends AppCompatActivity implements View.OnClickListener  {
 Button btnnext;
 TextView btnresp;
     EditText agentid,agentpin,phonenumber;
     private static final long INTERVAL = 1000 * 10;
-    private static final long FASTEST_INTERVAL = 1000 * 5;
+
+
+    private LocationRequest locationRequest;
+    private static final long UPDATE_INTERVAL = 2000, FASTEST_INTERVAL = 2000; // = 5 seconds
 String mlat;
     String mlongt;
     //Context applicationContext;
@@ -92,6 +103,11 @@ String mlat;
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     Location mCurrentLocation;
+
+    private GoogleApiClient googleApiClient;
+
+    private Location mLastLocation;
+
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -113,7 +129,7 @@ String mlat;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
 
 
         agentid  = (EditText) findViewById(R.id.agentid);
@@ -130,23 +146,40 @@ String mlat;
         // Set Cancelable as False
 
         pDialog.setCancelable(false);
+        if (isGooglePlayServicesAvailable()) {
+            mFusedLocationProviderClient = getFusedLocationProviderClient(this);
+          //  startLocationUpdates();
+            /*createLocationRequest();
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    //      .enableAutoManage(this, 34992, this)
+                    .addApi(LocationServices.API)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
 
-        createLocationRequest();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                //      .enableAutoManage(this, 34992, this)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
 
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        //  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        getLocationPermission();
 
+
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);*/
+            //  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            getLocationPermission();
+
+        }else{
+            Toast.makeText(this,"Google Play services is not updated",Toast.LENGTH_LONG);
+        }
 
        // testResp();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (googleApiClient != null) {
+            googleApiClient.connect();
+        }
+    }
+
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
@@ -167,7 +200,7 @@ String mlat;
                 Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
-               getDeviceLocation();
+            //   getDeviceLocation();
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -175,24 +208,48 @@ String mlat;
         }
     }
 
+  /*  public void getDeviceLocation() {
 
-    private void getDeviceLocation() {
+            mFusedLocationProviderClient.getLastLocation()
+                    .addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Location> task) {
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                mLastLocation = task.getResult();
+                                mlat = Double.toString(mLastLocation.getLatitude());
+                                mlongt = Double.toString(mLastLocation.getLongitude());
+
+                                SecurityLayer.Log("Tag", "Success ");
+                            } else {
+                                SecurityLayer.Log("Tag", "Inside getLocation function. Error while getting location");
+
+                            }
+                        }
+                    });
+
+    }*/
+    private void getDeviceLocation1() {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
          */
         try {
             if (mLocationPermissionGranted) {
+
+                SecurityLayer.Log("getdeviceloc","started");
                 Task locationResult = mFusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener(this, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
+                        SecurityLayer.Log("getdeviceloc","oncomplete");
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
+                            SecurityLayer.Log("getdeviceloc","tasksuccessful");
                             mLastKnownLocation = (Location) task.getResult();
                             if(!(mLastKnownLocation == null)) {
                                 CheckGpsStatus() ;
-
+                                SecurityLayer.Log("getdeviceloc","mlastknown");
+                                SecurityLayer.Log("chkgpsstatus",Boolean.toString(GpsStatus));
                                 if(GpsStatus == true) {
                                /*     SendLoc(String.valueOf(mLastKnownLocation.getLatitude()),
                                             String.valueOf(mLastKnownLocation.getLongitude()));*/
@@ -201,27 +258,28 @@ String mlat;
                                     mlongt = String.valueOf(mLastKnownLocation.getLongitude());
 
 
-                                   SecurityLayer.Log(mlat+","+mlongt);
+                                   SecurityLayer.Log("longitvalue",mlat+","+mlongt);
                                 }else{
                                         Toast.makeText(getApplicationContext(),"Please enable location services", Toast.LENGTH_LONG).show();
 
                                 }
                             }
                             else {
-                                Log.d("", "Current location is null. Using defaults.");
-                                Log.e("", "Exception: %s", task.getException());
+                                SecurityLayer.Log("getdeviceloc","Current location is null. Using defaults.");
+                                Log.v("", "Current location is null. Using defaults.");
+                                Log.v("", "Exception: %s", task.getException());
 
                             }
                         } else {
-                            Log.d("", "Current location is null. Using defaults.");
-                            Log.e("", "Exception: %s", task.getException());
+                            Log.v("", "Current location is null. Using defaults.");
+                            Log.v("", "Exception: %s", task.getException());
 
                         }
                     }
                 });
             }else {
-                Log.v("", "Please enable location");
-                  Toast.makeText(getApplicationContext(),"Please enable location permissions", Toast.LENGTH_LONG).show();
+                SecurityLayer.Log("", "Please enable location");
+                //  Toast.makeText(getApplicationContext(),"Please enable location permissions", Toast.LENGTH_LONG).show();
 
 
 
@@ -284,7 +342,7 @@ private void checkPlayServices(){
             @Override
             protected String doInBackground(Void... params) {
                 String msg = "";
-
+             //  getDeviceLocation();
                 return msg;
             }
 
@@ -293,7 +351,7 @@ private void checkPlayServices(){
             /*    if (!TextUtils.isEmpty(regId)) {*/
 
 
-                    getDeviceLocation();
+
                     String ip = Utility.getIP(getApplicationContext());
                     String mac = Utility.getMacAddress(getApplicationContext());
                     String serial = Utility.getSerial();
@@ -305,9 +363,9 @@ private void checkPlayServices(){
                             if(regId == null){
                                 regId = "JKKS";
                             }
-                         if(mlat != null && mlongt != null){
+                     //    if(mlat != null && mlongt != null){
 
-                             SecurityLayer.Log("Longt and Langit", mlat+","+mlongt);
+                            SecurityLayer.Log("Longt and Langit", mlat+","+mlongt);
                              //   final   String agid = agentid.getText().toString();
                              String agid = Utility.gettUtilUserId(getApplicationContext());
                              String agpin = agentpin.getText().toString();
@@ -321,14 +379,15 @@ private void checkPlayServices(){
                              String params = "1/" + agid + "/" + phnnumb + "/" + encrypted + "/"+mlat+"/"+mlongt+"/" + mac + "/" + ip + "/" + imei + "/" + serial + "/" + version + "/" + devtype + "/" + regId;
 
                              RetroDevReg(params);
-                         }else{
+
+                         /*   }else{
                              Toast.makeText(
                                      getApplicationContext(),
                                      "Please ensure you have set location services correctly",
                                      Toast.LENGTH_LONG).show();
 
                              pDialog.hide();
-                         }
+                         }*/
 
                         }
                     } else {
@@ -554,6 +613,8 @@ private void checkPlayServices(){
         });
 
     }
+
+
     private void insertDummyContactWrapper() {
         List<String> permissionsNeeded = new ArrayList<String>();
 
@@ -785,49 +846,49 @@ pDialog.dismiss();
     }
 
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        Log.d("onconnected", "onConnected - isConnected ...............: " + mGoogleApiClient.isConnected());
-        startLocationUpdates();
-    }
 
+
+   /* // Trigger new location updates at interval
     protected void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            PendingResult<Status> pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(
-                    mGoogleApiClient, mLocationRequest, this);
 
-            return;
+        // Create the location request to start receiving updates
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+        // Create LocationSettingsRequest object using location request
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        LocationSettingsRequest locationSettingsRequest = builder.build();
+
+        // Check whether location settings are satisfied
+        // https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+        settingsClient.checkLocationSettings(locationSettingsRequest);
+
+        // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+        getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        // do work here
+                        onLocationChanged(locationResult.getLastLocation());
+                    }
+                },
+                Looper.myLooper());
+    }*/
+
+
+
+
+    private boolean isGooglePlayServicesAvailable() {
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (ConnectionResult.SUCCESS == status) {
+            return true;
+        } else {
+            GooglePlayServicesUtil.getErrorDialog(status, this, 0).show();
+            return false;
         }
-
-        Log.d("Location update", "Location update started ..............: ");
     }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("Location update", "Connection failed: " + connectionResult.toString());
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        Log.d("Location update", "Firing onLocationChanged..............................................");
-        mCurrentLocation = location;
-        String lat = String.valueOf(mCurrentLocation.getLatitude());
-        String lng = String.valueOf(mCurrentLocation.getLongitude());
-
-        Log.d("Longitude changed",lng);
-        Log.d("Latitude changed",lat);
-
-    }
 }
